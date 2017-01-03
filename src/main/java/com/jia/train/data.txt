@@ -1,0 +1,12 @@
+                  post=new HttpPost("https://kyfw.12306.cn/otn/login/userLogin");
+//                post.setHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+//                post.setHeader("Cookie",u12306.getCookie());
+//                post.setHeader("Origin","https://kyfw.12306.cn");
+//                post.setHeader("Accept","*/*");
+//                post.setHeader("User-Agent","Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2351.3 Safari/537.36");
+//                post.setEntity(new StringEntity("_json_att="));
+//
+//                resp=client.execute(post);
+//                System.out.println(resp.getFirstHeader("Location"));
+//                EntityUtils.consume(resp.getEntity());
+
