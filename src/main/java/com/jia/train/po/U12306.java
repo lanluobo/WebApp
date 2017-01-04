@@ -13,6 +13,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
  *
  * @author 贾学雷
  */
+
+/**
+ * 登录相关参数
+ */
 public class U12306 {
     private String session;
     private String bIGipServerotn;

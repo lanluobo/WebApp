@@ -2,6 +2,7 @@ package com.jia.train.po;
 
 /**
  * Created by jiaxl on 2017/1/1.
+ * 车次信息详情
  */
 public class TrainInfo {
 

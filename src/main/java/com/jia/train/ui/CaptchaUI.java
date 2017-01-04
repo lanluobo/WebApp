@@ -123,7 +123,7 @@ public class CaptchaUI extends JFrame{
     private void refreshCaptcha(int version) {
         this.remove(labelImage);
         codeXY.clear();
-        HttpClient client= HttpClientUtil.getHttpClient();
+        HttpClient client= HttpClientUtil.getProxyHttpClient();
         HttpGet get = new HttpGet("https://kyfw.12306.cn/otn/passcodeNew/getPassCodeNew?module=login&rand=sjrand&" + System.currentTimeMillis());
         get.setHeader("Cookie",u12306.getCookie());
         HttpResponse resp = null;

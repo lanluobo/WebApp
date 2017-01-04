@@ -2,6 +2,8 @@ package com.jia.train.po;
 
 /**
  * Created by jiaxl on 2016/12/31.
+ *
+ * 支付宝支付参数，html代码解析
  */
 public class AliPay {
     private String ord_time_ext;

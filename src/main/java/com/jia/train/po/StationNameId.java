@@ -2,6 +2,7 @@ package com.jia.train.po;
 
 /**
  * Created by jiaxl on 2016/12/31. @bjb|北京北|VAP|beijingbei|bjb|0
+ * 站点信息
  */
 public class StationNameId {
 

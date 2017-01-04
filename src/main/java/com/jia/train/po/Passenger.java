@@ -2,6 +2,7 @@ package com.jia.train.po;
 
 /**
  * Created by jiaxl on 2016/12/30.
+ * 常用联系人信息
  */
 public class Passenger {
     private String code;

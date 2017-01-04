@@ -13,7 +13,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
-
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -227,7 +226,6 @@ public class Utils {
         map.put("_json_att", "");
         result = HttpClientUtil.getDataByPost(json.getString("epayurl"), u12306, map);
         TrainPay trainPay = JsoupUtil.formToObject(result, TrainPay.class);
-        trainPay.setBankId("33000010");
 
         //构建支付宝订单
         map.clear();

@@ -2,6 +2,7 @@ package com.jia.train.po;
 
 /**
  * Created by jiaxl on 2016/12/31.
+ * 官网支付参数信息（bankId固定选择支付宝）
  */
 public class TrainPay {
 
@@ -12,7 +13,7 @@ public class TrainPay {
     private String merSignMsg;
     private String merCustomIp;
     private String orderTimeoutDate;
-    private String bankId;
+    private String bankId="33000010";
 
 
     public String getTranData() {

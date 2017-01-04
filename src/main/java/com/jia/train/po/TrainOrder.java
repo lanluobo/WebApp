@@ -4,6 +4,7 @@ import java.util.List;
 
 /**
  * Created by jiaxl on 2016/12/30.
+ * 车票订单信息
  */
 public class TrainOrder {
     private String start_time_page;

@@ -143,11 +143,11 @@ public class HttpClientUtil {
     public static HttpClient getProxyHttpClient() {
         HttpClient client = null;
         try {
-            client = createSSLClientDefault();
+            client = getHttpClient();
         } catch (Exception e) {
             e.printStackTrace();
         }
-//        client.getParams().setParameter(ConnRouteParams.DEFAULT_PROXY, proxy);
+        client.getParams().setParameter(ConnRouteParams.DEFAULT_PROXY, proxy);
         return client;
     }
 
