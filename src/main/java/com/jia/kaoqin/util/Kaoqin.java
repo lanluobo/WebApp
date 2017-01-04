@@ -149,9 +149,10 @@ public class Kaoqin {
         try {
             String result = HttpClientUtil.getDataByGet(client, "http://kq.channelsoft.com:49527/iclock/staff/", null);
 
-            Pattern p = Pattern.compile("uid=\"\\d*");
+            Pattern p = Pattern.compile("uid=\"\\d+");
             Matcher m = p.matcher(result);
             if (m.find()) {
+                Integer.parseInt(result.substring(m.end() - 4, m.end()));
                 return result.substring(m.end() - 4, m.end());
             }
         } catch (Exception e) {
