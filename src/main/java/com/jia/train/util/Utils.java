@@ -67,7 +67,7 @@ public class Utils {
     public static boolean validateCode(U12306 u12306) {
         try {
             System.out.println("校验验证码...");
-            HttpClient client = HttpClientUtil.getHttpClient();
+            HttpClient client = HttpClientUtil.getProxyHttpClient();
             HttpPost post = new HttpPost("https://kyfw.12306.cn/otn/passcodeNew/checkRandCodeAnsyn");
             post.setHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
             post.setHeader("Origin", "https://kyfw.12306.cn");
@@ -81,8 +81,12 @@ public class Utils {
                 System.out.println("验证码正确...");
                 return true;
             } else {
-                System.out.println(result);
-                System.out.println("验证码错误...");
+                if(result.contains("msg\":\"FALSE\"")){
+                    System.out.println("验证码错误...");
+                }else{//系统抽筋的情况，需要刷新session
+                    System.out.println("系统抽筋:"+result);
+                    Utils.setCookie(u12306);
+                }
                 return false;
             }
         } catch (Exception e) {
@@ -99,7 +103,7 @@ public class Utils {
      */
     public static boolean login(U12306 u12306) {
         try {
-            HttpClient client = HttpClientUtil.getHttpClient();
+            HttpClient client = HttpClientUtil.getProxyHttpClient();
             HttpPost post = new HttpPost("https://kyfw.12306.cn/otn/login/loginAysnSuggest");
             post.setHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
             post.setHeader("Cookie", u12306.getCookie());

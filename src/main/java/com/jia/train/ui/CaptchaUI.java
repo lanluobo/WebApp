@@ -1,6 +1,7 @@
 package com.jia.train.ui;
 
 import com.jia.common.util.HttpClientUtil;
+import com.jia.train.listener.LoginActionListener;
 import com.jia.train.po.U12306;
 import com.jia.train.util.Utils;
 import org.apache.http.HttpResponse;
@@ -27,12 +28,14 @@ public class CaptchaUI extends JFrame{
     JButton confirmButton=new JButton("确定");
     JButton updateCaptchaButton=new JButton("眼瞎？");
     JPanel panel=new JPanel();
-    U12306 u12306;
-    int captchaVersion;
-    static Map<Integer,String>selectCode=new HashMap<Integer, String>();
+    public U12306 u12306;
+    public int captchaVersion;
+    public static Map<Integer,String>selectCode=new HashMap<Integer, String>();
     ImageIcon icon1;
     static Image image;
     JLabel labelImage=new JLabel();
+    public Map<Integer,Point>codeXY=new HashMap<Integer, Point>();
+
     static {
         try {
             image=ImageIO.read(CaptchaUI.class.getResourceAsStream("/captcha.png"));
@@ -49,15 +52,13 @@ public class CaptchaUI extends JFrame{
             e.printStackTrace();
         }
     }
-    Map<Integer,Point>codeXY=new HashMap<Integer, Point>();
-
-    public CaptchaUI(U12306 u12306) throws IOException {
-        this.u12306=u12306;
+    public CaptchaUI(UI ui) throws IOException {
+        this.u12306=ui.u12306;
         this.setLayout(null);
         this.setIconImage(ImageIO.read(this.getClass().getResourceAsStream("/12306.png")));
         this.setTitle("请选择验证码....");
         this.setResizable(false);
-        this.setBounds(400, 200, 300, 270);
+        this.setBounds(ui.getX()+ui.getWidth()/3, ui.getY()+ui.getHeight()/4, 300, 270);
         confirmButton.setBounds(90,200,100,30);
         updateCaptchaButton.setBounds(210,203,68,25);
         this.add(updateCaptchaButton);
@@ -96,31 +97,13 @@ public class CaptchaUI extends JFrame{
         /**
          * 确定验证码按钮
          */
-        confirmButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                u12306.setCode("");
-                for (Integer key:codeXY.keySet()){
-                    if(codeXY.get(key)!=null){
-                        u12306.setCode(u12306.getCode()+selectCode.get(key)+",");
-                    }
-                }
-                System.out.println(u12306.getCode());
-                if(Utils.validateCode(u12306)){
-                    if(Utils.login(u12306)){
-                        Utils.initData(u12306);
-                    }
-                }else {
-                    refreshCaptcha(++captchaVersion);
-                }
-            }
-        });
+        confirmButton.addActionListener(new LoginActionListener(this));
     }
 
     /**
      * 眼瞎 刷新验证码，更新UI组件
      */
-    private void refreshCaptcha(int version) {
+    public void refreshCaptcha(int version) {
         this.remove(labelImage);
         codeXY.clear();
         HttpClient client= HttpClientUtil.getProxyHttpClient();

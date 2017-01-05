@@ -1,5 +1,7 @@
 package com.jia.train.util;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.jia.train.listener.SessionListener;
 import com.jia.train.po.U12306;
 import org.apache.http.HttpResponse;
@@ -17,7 +19,6 @@ public class SessionCheck {
 
     private static volatile boolean isStart;
     private static volatile U12306 u12306;
-
     /**
      * 启动线程检测登录状态
      */
@@ -71,7 +72,14 @@ public class SessionCheck {
                     result = EntityUtils.toString(resp.getEntity());
                     System.out.println(result);
                     if(!result.contains("flag\":true")){
-                        notifyListener();
+                        JSONArray array=JSONObject.parseObject(result).getJSONArray("messages");
+                        if(array!=null){
+                            notifyListener(array.getString(0));
+                        }else {
+                            notifyListener("登录失效，未知异常");
+                        }
+
+                        isStart=false;
                     }
                 }
             } catch (Exception e) {
@@ -80,9 +88,10 @@ public class SessionCheck {
         }
     }
 
-    private synchronized static void notifyListener() {
+    private synchronized static void notifyListener(String msg) {
+        System.out.println("登录失效通知观察者,Msg="+msg);
         for(SessionListener l:listeners){
-            l.dealSessionExpired();
+            l.dealSessionExpired(msg);
         }
     }
 

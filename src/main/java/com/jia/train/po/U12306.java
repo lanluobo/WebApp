@@ -23,7 +23,6 @@ public class U12306 {
     private String user;
     private String psd;
     private String code="";
-    public static CopyOnWriteArrayList<U12306> list=new CopyOnWriteArrayList<U12306> ();
     public String getCode() {
         return code;
     }
@@ -68,9 +67,9 @@ public class U12306 {
         this.psd = psd;
     }
 
+
     @Override
     public String toString() {
-
         return "U12306{" +
                 "session='" + session + '\'' +
                 ", bIGipServerotn='" + bIGipServerotn + '\'' +
@@ -78,8 +77,5 @@ public class U12306 {
                 ", psd='" + psd + '\'' +
                 ", code='" + code + '\'' +
                 '}';
-    }
-    public void free(){
-        list.remove(this);
     }
 }
